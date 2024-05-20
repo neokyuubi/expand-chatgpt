@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Expand
-// @namespace    http://tampermonkey.net/
+// @namespace    https://github.com/neokyuubi/expand-chatgpt
 // @version      2024-04-30
 // @description  Expand content
 // @author       Neokyuubi
