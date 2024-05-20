@@ -1,0 +1,42 @@
+// ==UserScript==
+// @name         Expand
+// @namespace    http://tampermonkey.net/
+// @version      2024-04-30
+// @description  Expand content
+// @author       Neokyuubi
+// @match        https://chat.openai.com/*
+// @match        https://chatgpt.com/c/*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=openai.com
+// @grant        none
+// @require      https://code.jquery.com/jquery-3.6.0.min.js
+// ==/UserScript==
+
+(function() {
+    'use strict';
+    $(document).ready(function() {
+        // Function to update max-width of elements
+        function updateMaxWidth() {
+            $('[class*="xl:max-w-[48rem]"]').css('max-width', '100rem');
+        }
+
+        // Initial update
+        updateMaxWidth();
+
+        // Create a MutationObserver to watch for added nodes
+        const observer = new MutationObserver(function(mutationsList) {
+            for (const mutation of mutationsList) {
+                if (mutation.type === 'childList') {
+                    // Check added nodes for the target class
+                    for (const node of mutation.addedNodes) {
+                        if ($(node).is('[class*="xl:max-w-[48rem]"]') || $(node).find('[class*="xl:max-w-[48rem]"]').length > 0) {
+                            updateMaxWidth();
+                        }
+                    }
+                }
+            }
+        });
+
+        // Start observing the document body for added nodes
+        observer.observe(document.body, { childList: true, subtree: true });
+    });
+})();
