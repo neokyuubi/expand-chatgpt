@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Expand
 // @namespace    https://github.com/neokyuubi/expand-chatgpt
-// @version      2024-04-30
+// @version      0.0.3
 // @description  Expand the width of the page
 // @author       Neokyuubi
 // @match        https://chat.openai.com/*
