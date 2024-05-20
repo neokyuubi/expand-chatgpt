@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Expand-Gpt
 // @namespace    https://github.com/neokyuubi/expand-chatgpt
-// @version      0.0.6
+// @version      0.0.7
 // @description  Expand the width of the page
 // @author       Neokyuubi
 // @match        https://chat.openai.com/*
@@ -13,34 +13,37 @@
 
 (function() {
     'use strict';
-    $(document).ready(function() {
-        // Function to update max-width of elements
-        function updateMaxWidth() {
-            $('[class*="xl:max-w-[48rem]"]').css('max-width', '100rem');
-            $('[class*="max-w-[90%]"]').css('width', '100%');
-        }
 
-        // Initial update
-        updateMaxWidth();
+    // Function to update max-width of elements
+    function updateMaxWidth() {
+        document.querySelectorAll('[class*="xl:max-w-[48rem]"]').forEach(el => el.style.maxWidth = '100rem');
+        document.querySelectorAll('[class*="max-w-[90%]"]').forEach(el => el.style.width = '100%');
+    }
 
-        // Create a MutationObserver to watch for added nodes
-        const observer = new MutationObserver(function(mutationsList) {
-            for (const mutation of mutationsList) {
-                if (mutation.type === 'childList') {
-                    // Check added nodes for the target class
-                    for (const node of mutation.addedNodes) { // max-w-[90%]
-                        if ($(node).is('[class*="xl:max-w-[48rem]"]') || $(node).find('[class*="xl:max-w-[48rem]"]').length > 0) {
-                            updateMaxWidth();
-                        }
-                        if ($(node).is('[class*="max-w-[90%]"]') || $(node).find('[class*="max-w-[90%]"]').length > 0) {
-                            updateMaxWidth();
+    // Initial update
+    updateMaxWidth();
+
+    // Create a MutationObserver to watch for added nodes
+    const observer = new MutationObserver((mutationsList) => {
+        let needsUpdate = false;
+        for (const mutation of mutationsList) {
+            if (mutation.type === 'childList') {
+                for (const node of mutation.addedNodes) {
+                    if (node.nodeType === 1) { // Ensure it's an element node
+                        if (node.matches('[class*="xl:max-w-[48rem]"], [class*="max-w-[90%]"]') || 
+                            node.querySelector('[class*="xl:max-w-[48rem]"], [class*="max-w-[90%]"]')) {
+                            needsUpdate = true;
+                            break;
                         }
                     }
                 }
             }
-        });
-
-        // Start observing the document body for added nodes
-        observer.observe(document.body, { childList: true, subtree: true });
+            if (needsUpdate) break;
+        }
+        if (needsUpdate) updateMaxWidth();
     });
+
+    // Start observing the document body for added nodes
+    observer.observe(document.body, { childList: true, subtree: true });
+
 })();
