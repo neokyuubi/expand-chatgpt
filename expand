@@ -17,6 +17,7 @@
         // Function to update max-width of elements
         function updateMaxWidth() {
             $('[class*="xl:max-w-[48rem]"]').css('max-width', '100rem');
+            $('[class*="max-w-[90%]"]').css('width', '100%');
         }
 
         // Initial update
@@ -27,8 +28,11 @@
             for (const mutation of mutationsList) {
                 if (mutation.type === 'childList') {
                     // Check added nodes for the target class
-                    for (const node of mutation.addedNodes) {
+                    for (const node of mutation.addedNodes) { // max-w-[90%]
                         if ($(node).is('[class*="xl:max-w-[48rem]"]') || $(node).find('[class*="xl:max-w-[48rem]"]').length > 0) {
+                            updateMaxWidth();
+                        }
+                        if ($(node).is('[class*="max-w-[90%]"]') || $(node).find('[class*="max-w-[90%]"]').length > 0) {
                             updateMaxWidth();
                         }
                     }
