@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Expand-Gpt
 // @namespace    https://github.com/neokyuubi/expand-chatgpt
-// @version      0.0.9
+// @version      0.1.0
 // @description  Expand the width of the page
 // @author       Neokyuubi
 // @match        https://chat.openai.com/*
@@ -16,7 +16,7 @@
 
     // Function to update max-width of elements
     function updateMaxWidth() {
-        document.querySelectorAll('[class*="xl:max-w-[48rem]"]').forEach(el => el.style.maxWidth = '100rem');
+        document.querySelectorAll('[class*="xl:max-w-[48rem]"], [class*="lg:max-w-[40rem]"]').forEach(el => el.style.maxWidth = '100%');
         document.querySelectorAll('[class*="max-w-[90%]"]').forEach(el => el.style.width = '100%');
         document.querySelectorAll('[class*="max-w-[70%]"]').forEach(el => {
             el.style.maxWidth = '100%';
