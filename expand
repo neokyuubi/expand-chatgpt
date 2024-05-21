@@ -18,6 +18,7 @@
     function updateMaxWidth() {
         document.querySelectorAll('[class*="xl:max-w-[48rem]"]').forEach(el => el.style.maxWidth = '100rem');
         document.querySelectorAll('[class*="max-w-[90%]"]').forEach(el => el.style.width = '100%');
+        document.querySelectorAll('[class*="max-w-[70%]"]').forEach(el => el.style.maxWidth = '100%');
     }
 
     // Initial update
