@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Expand-Gpt
 // @namespace    https://github.com/neokyuubi/expand-chatgpt
-// @version      0.1.1
+// @version      0.1.2
 // @description  Expand the width of the page
 // @author       Neokyuubi
 // @match        https://chat.openai.com/*
@@ -34,8 +34,8 @@
             if (mutation.type === 'childList') {
                 for (const node of mutation.addedNodes) {
                     if (node.nodeType === 1) { // Ensure it's an element node
-                        if (node.matches('[class*="xl:max-w-[48rem]"], [class*="max-w-[90%]"]') || 
-                            node.querySelector('[class*="xl:max-w-[48rem]"], [class*="max-w-[90%]"]')) {
+                        if (node.matches('[class*="xl:max-w-[48rem]"], [class*="max-w-[90%]"], [class*="max-w-[70%]"], [class*="lg:max-w-[40rem]') || 
+                            node.querySelector('[class*="xl:max-w-[48rem]"], [class*="max-w-[90%]"], [class*="max-w-[70%]"], [class*="lg:max-w-[40rem]')) {
                             needsUpdate = true;
                             break;
                         }
